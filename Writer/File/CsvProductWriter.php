@@ -210,11 +210,13 @@ class CsvProductWriter extends CsvWriter
         }
 
         $dirname = dirname($exportPath);
-
-        $sftpConnection = new SFTPConnection($this->getHost(), $this->getPort());
-        $sftpConnection->login($this->getUsername(), $this->getPassword());
-        $sftpConnection->createDirectory($this->getImageFolderPath() . $dirname);
-        $sftpConnection->uploadFile($filePath, $this->getImageFolderPath().$exportPath);
+	
+	if(!empty($this->getHost() && !empty($this->getPort()))){
+	        $sftpConnection = new SFTPConnection($this->getHost(), $this->getPort());
+	        $sftpConnection->login($this->getUsername(), $this->getPassword());
+	        $sftpConnection->createDirectory($this->getImageFolderPath() . $dirname);
+	        $sftpConnection->uploadFile($filePath, $this->getImageFolderPath().$exportPath);
+	} 
     }
 
     /**
